@@ -1,5 +1,4 @@
 import cv2 as cv
-from fpdf import FPDF
 import os 
 url = 'http://192.168.0.101:8080/video'
 
@@ -30,7 +29,7 @@ while ret:
             cv.destroyWindow("Scanned Photo")
             gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
             threshold = cv.adaptiveThreshold(gray,255,cv.ADAPTIVE_THRESH_GAUSSIAN_C,cv.THRESH_BINARY,155,1)
-            cv.imwrite(f"/Users/akashbachhar/Desktop/pdf/image_thresold{i}.jpg", threshold)
+            cv.imwrite(f"D:/scan/image_thresold{i}.jpg", threshold)
             i = i + 1
             print("Press 's' to Scan More Document")
             print("Press 'q' to Quit")
@@ -39,7 +38,7 @@ while ret:
         elif k1 == ord ('b'):
             cv.destroyWindow("Scanned Photo")
             gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-            cv.imwrite(f"/Users/akashbachhar/Desktop/pdf/image{i}.jpg", gray)
+            cv.imwrite(f"D:/scan/image{i}.jpg", gray)
             i = i + 1
             print("Press 's' to Scan More Document")
             print("Press 'q' to Quit")
@@ -50,11 +49,3 @@ while ret:
         break
 
 cv.destroyAllWindows()
-
-imagelist = os.listdir("/Users/akashbachhar/Desktop/pdf/")
-pdf = FPDF()
-for image in imagelist:
-    image = "/Users/akashbachhar/Desktop/pdf/" + image
-    pdf.add_page()
-    pdf.image(image)
-pdf.output("/Users/akashbachhar/Desktop/output/scanned.pdf", "F")
